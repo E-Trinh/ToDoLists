@@ -3,7 +3,7 @@ import { todo } from "./todo";
 const project = (name) => {
     const list = [];
 
-    const get = index => {
+    const getTodo = index => {
         return list[index];
     };
 
@@ -12,15 +12,16 @@ const project = (name) => {
     };
 
     const deleteTodo = index => {
-        list.splice(index, -1);
-    }
+        list.splice(index, 1);
+    };
 
     const length = () => {
-        list.length();
-    }
+        return list.length;
+    };
 
     return {
-        get,
+        name,
+        getTodo,
         addTodo,
         deleteTodo,
         length,
