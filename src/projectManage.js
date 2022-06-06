@@ -31,7 +31,7 @@ const projectManage = (function() {
         newProject,
         getProject,
         deleteProject,
-        projectNum
+        projectNum,
     };
 })();
 

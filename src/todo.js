@@ -8,7 +8,7 @@ const todo = (title, content, due, priority) => {
         content,
         due,
         priority,
-        completion
+        completion,
     };
 };
 
