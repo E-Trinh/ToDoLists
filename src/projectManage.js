@@ -3,7 +3,7 @@ import { project } from "./project";
 //projectManage module, contains the logic for managing the projects
 
 const projectManage = (function() {
-    const defaultProject = project("default");
+    const defaultProject = project("Home");
     const userProjects = [];
 
     const getdefaultProject = () => {

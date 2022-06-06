@@ -3,7 +3,8 @@ import './styles.css';
 
 //displayController module, handles all DOM controls for the mainController module
 const displayController = (function() {
-    const pageSetup = projects => {
+    //used for initial set up of HTML document, adds the main containers and calls functions to add default items to them
+    const pageSetup = (projects, todos) => {
         const navBar = document.createElement("div");
         navBar.classList.toggle("nav-bar");
 
@@ -13,25 +14,34 @@ const displayController = (function() {
         document.getElementById("content").appendChild(navBar);
         document.getElementById("content").appendChild(mainView);
         navSetup(projects);
+        containerSetup(todos);
     };
 
+    //adds elements to the navigation bar
     const navSetup = projects => {
         const navBar = document.querySelector(".nav-bar");
         navBar.textContent = "";
 
         const header = document.createElement("h1");
         header.textContent = "Todo's";
+        navBar.appendChild(header);
         
+        //default project, Home
         const defaultProject = document.createElement("p");
         defaultProject.textContent = "Home";
-
-        navBar.appendChild(header);
+        defaultProject.addEventListener("click", event => {
+            mainController.selectProject("default");
+        });
         navBar.appendChild(defaultProject);
 
         //adds elements for the name of each projects
-        projects.forEach(name => {
+        projects.forEach(proj => {
             const nameTag = document.createElement("p");
-            nameTag.textContent = name;
+            nameTag.dataset.index = proj.index;
+            nameTag.textContent = proj.name;
+            nameTag.addEventListener("click", event => {
+               mainController.selectProject(event.target.dataset.index); 
+            });
             navBar.appendChild(nameTag);
         });
 
@@ -48,7 +58,6 @@ const displayController = (function() {
             }
         });
         newProject.addEventListener("blur", newProjectEventListener);
-
         navBar.appendChild(newProject);
     }
 
@@ -62,42 +71,79 @@ const displayController = (function() {
         event.target.blur();
     };
 
-    const containerSetup = () => {
-        const navBar = document.querySelector(".main-container");
-        navBar.textContent = "";
+    //function is used for displaying the contents of the main container
+    const containerSetup = todos => {
+        const container = document.querySelector(".main-container");
+        container.textContent = "";
 
         const header = document.createElement("h1");
-        header.textContent = "";
+        header.textContent = todos[0];
+        container.appendChild(header);
+
+        for (let i = 1; i < todos.length; i++) {
+            const todo = document.createElement("p");
+            todo.textContent = todos[i].title;
+            container.appendChild(todo);
+        }
     }
 
     return {
         pageSetup,
         navSetup,
+        containerSetup,
     }
 })();
 
 //mainController module, handles interaction between the view and model
 const mainController = (function() {
+    //used for initial setup of the page, sends the project and todo information to displayController to display
     const initialize = () => {
         const projects = [];
-        for (let i = 0; i < projectManage.projectNum; i++) {
+        const todos = [];
+        for (let i = 0; i < projectManage.projectNum(); i++) {
             projects.push(projectManage.getProject(i).name)
         }
-        displayController.pageSetup(projects);
+        todos.push(projectManage.getdefaultProject().name);
+        for (let i = 0; i < projectManage.getdefaultProject().length(); i++) {
+            todos.push(projectManage.getdefaultProject().getTodo(i));
+        }
+        displayController.pageSetup(projects, todos);
     }
 
     initialize();
 
+    //function for adding a new project to the model and view
     const addProject = name => {
         projectManage.newProject(name);
         const projects = [];
         for (let i = 0; i < projectManage.projectNum(); i++) {
-            projects.push(projectManage.getProject(i).name);
+            projects.push({
+                name: projectManage.getProject(i).name,
+                index: i,
+            });
         }
         displayController.navSetup(projects);
     }
 
+    //function for displaying a project, gets the project data from model and uses displayController to display it
+    const selectProject = index => {
+        const todos = [];
+        if (index === "default") {
+            todos.push(projectManage.getdefaultProject().name);
+            for (let i = 0; i < projectManage.getdefaultProject().length(); i++) {
+                todos.push(projectManage.getdefaultProject().getTodo(i));
+            }
+        } else {
+            todos.push(projectManage.getProject(index).name);
+            for (let i = 0; i < projectManage.getProject(index).length(); i++) {
+                todos.push(projectManage.getProject(index).getTodo(i));
+            }
+        }
+        displayController.containerSetup(todos);
+    }
+
     return {
         addProject,
+        selectProject,
     }
 })();
