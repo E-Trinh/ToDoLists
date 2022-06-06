@@ -1,5 +1,7 @@
 import { project } from "./project";
 
+//projectManage module, contains the logic for managing the projects
+
 const projectManage = (function() {
     const defaultProject = project("default");
     const userProjects = [];

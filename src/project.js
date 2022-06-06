@@ -1,5 +1,7 @@
 import { todo } from "./todo";
 
+//project object factory, contains an arrays of todo objects that corresponds with the project
+
 const project = (name) => {
     const list = [];
 

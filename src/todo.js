@@ -1,3 +1,5 @@
+//todo object factory
+
 const todo = (title, content, due, priority) => {
     let completion = false;
 
