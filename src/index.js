@@ -104,6 +104,7 @@ const displayController = (function() {
             todo.dataset.date = todos[i].due;
             todo.addEventListener("click", event => {
                 editTodoMenu({
+                    index: todo.dataset.index,
                     title: todo.textContent,
                     description: todo.dataset.description,
                     priority: todo.dataset.priority,
@@ -202,8 +203,15 @@ const displayController = (function() {
         date.value = todo.date;
 
         const save = document.createElement("button");
-        save.textContent = "Add";
+        save.textContent = "Save";
         save.addEventListener("click", ()=> {
+            mainController.editTodo({
+                index: todo.index,
+                title: title.value,
+                description: desc.value,
+                priority: priority.value,
+                date: date.value
+            });
             closeSideMenu();
         });
         const cancel = document.createElement("button");
@@ -307,16 +315,26 @@ const mainController = (function() {
     const addTodo = obj => {
         if (currentProj === "default") {
             projectManage.getdefaultProject().addTodo(obj.title, obj.description, obj.date, obj.priority);
-            selectProject("default");
         } else {
             projectManage.getProject(currentProj).addTodo(obj.title, obj.description, obj,date, obj.priority);
-            selectProject(currentProj);
         }
+        selectProject(currentProj);
+    }
+
+    //accepts an object as parameter and modifies the todo item at the index in the obj argument
+    const editTodo = obj => {
+        if (currentProj === "default") {
+            projectManage.getdefaultProject().editTodo(obj.index, obj);
+        } else {
+            projectManage.getProject(currentProj).editTodo(obj.index, obj);
+        }
+        selectProject(currentProj);
     }
 
     return {
         addProject,
         selectProject,
         addTodo,
+        editTodo,
     }
 })();

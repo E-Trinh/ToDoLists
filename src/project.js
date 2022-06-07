@@ -33,6 +33,7 @@ const project = (name) => {
         getTodo,
         addTodo,
         deleteTodo,
+        editTodo,
         length,
         name,
     };
