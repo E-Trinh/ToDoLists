@@ -109,7 +109,7 @@ const displayController = (function() {
         allTodoContainer.classList.toggle("all-todo-container");
 
         const todoContainer = document.createElement("div");
-        todoContainer.classList.toggle("todo-container");
+        todoContainer.classList.toggle("key-container");
         const complete = document.createElement("p");
         complete.textContent = "Complete";
         complete.classList.toggle("priority");
@@ -140,7 +140,14 @@ const displayController = (function() {
             //complete.checked = todos[i].complete;
 
             const priority = document.createElement("p");
-            priority.textContent = todos[i].priority;
+            priority.dataset.priority = todos[i].priority;
+            if (todos[i].priority == 1) {
+                priority.textContent = "High"
+            } else if (todos[i].priority == 2) {
+                priority.textContent = "Medium"
+            } else {
+                priority.textContent = "Low"
+            }
             priority.classList.toggle("priority");
 
             const todo = document.createElement("p");
@@ -156,7 +163,7 @@ const displayController = (function() {
                     index: todoContainer.dataset.index,
                     title: todo.textContent,
                     description: todoContainer.dataset.description,
-                    priority: priority.textContent,
+                    priority: priority.dataset.priority,
                     date: due.textContent
                 });
             });
@@ -170,9 +177,10 @@ const displayController = (function() {
         container.appendChild(allTodoContainer);
 
         const newTodo = document.createElement("button");
+        newTodo.classList.toggle("new-todo-button");
         newTodo.textContent = "New Todo Item";
         newTodo.addEventListener("click", newTodoMenu);
-        container.appendChild(newTodo);
+        allTodoContainer.appendChild(newTodo);
     }
 
     //function for setting up the layout of the side menu

@@ -61,10 +61,19 @@ html, body {
     overflow-y: auto;
     background-color: var(--main-bg-color);
     color: var(--main-font-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    padding-top: 50px;
+    font-size: 1.3rem;
 }
 
 .main-container > span {
     font-size: 1.5rem;
+    position: absolute;
+    left: 15px;
+    top: 10px;
     opacity: 0.7;
 }
 
@@ -73,11 +82,20 @@ html, body {
     flex-direction: column;
     width: 80%;
     background-color: var(--nav-bg-color);
-    color: var(--nav-font-color)
+    color: var(--nav-font-color);
+    border-radius: 5px;
+    border: 1px solid #101010;
+    box-shadow: 0px 0px 3px #101010;
 }
 
-.todo-container {
+.todo-container, .key-container {
     display: flex;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.todo-container:hover {
+    background-color: #164E63;
 }
 
 .complete {
@@ -86,14 +104,33 @@ html, body {
 
 .priority {
     flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .todo-title {
     flex: 6;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .due {
     flex: 1.5;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.new-todo-button {
+    text-align: left;
+    font-size: 1.5rem;
+    background-color: #075985;
+    color: var(--nav-font-color);
+    border: none;
+    transition: background-color 0.5s;
+}
+
+.new-todo-button:hover {
+    background-color: #0369A1;
 }
 
 .opacity-bg {
