@@ -156,9 +156,12 @@ const displayController = (function() {
         high.textContent = "High"
         high.value = "1";
 
+        const dateLabel = document.createElement("label");
+        priorityLabel.for = "date";
+        priorityLabel.textContent = "Date";
+
         const date = document.createElement("input");
-        date.type = "text";
-        date.placeholder = "Date";
+        date.type = "date";
         date.id = "date"
 
         const buttonDiv = document.createElement("div");
@@ -173,6 +176,7 @@ const displayController = (function() {
         sideMenu.appendChild(desc);
         sideMenu.appendChild(priorityLabel);
         sideMenu.appendChild(priority)
+        sideMenu.appendChild(dateLabel);
         sideMenu.appendChild(date);
         sideMenu.appendChild(buttonDiv);
     }
