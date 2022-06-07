@@ -219,11 +219,19 @@ const displayController = (function() {
         cancel.addEventListener("click", () => {
             closeSideMenu();
         });
+        const deleteTodo = document.createElement("button");
+        deleteTodo.textContent = "Delete";
+        deleteTodo.addEventListener("click", () => {
+            mainController.deleteTodo(todo.index);
+            closeSideMenu();
+        });
+
 
         document.querySelector(".side-header").textContent = "View/Edit Item";
 
         buttonDiv.appendChild(save);
         buttonDiv.appendChild(cancel);
+        buttonDiv.appendChild(deleteTodo);
 
         window.requestAnimationFrame(() => {
             sideMenu.style.width = "25%";
@@ -316,7 +324,7 @@ const mainController = (function() {
         if (currentProj === "default") {
             projectManage.getdefaultProject().addTodo(obj.title, obj.description, obj.date, obj.priority);
         } else {
-            projectManage.getProject(currentProj).addTodo(obj.title, obj.description, obj,date, obj.priority);
+            projectManage.getProject(currentProj).addTodo(obj.title, obj.description, obj.date, obj.priority);
         }
         selectProject(currentProj);
     }
@@ -331,10 +339,20 @@ const mainController = (function() {
         selectProject(currentProj);
     }
 
+    const deleteTodo = index => {
+        if (currentProj === "default") {
+            projectManage.getdefaultProject().deleteTodo(index);
+        } else {
+            projectManage.getProject(currentProj).deleteTodo(index);
+        }
+        selectProject(currentProj);
+    }
+
     return {
         addProject,
         selectProject,
         addTodo,
         editTodo,
+        deleteTodo,
     }
 })();
