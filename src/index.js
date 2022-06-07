@@ -22,12 +22,14 @@ const displayController = (function() {
             });
         });
 
-        document.getElementById("content").appendChild(navBar);
-        document.getElementById("content").appendChild(mainView);
-        document.getElementById("content").appendChild(menuDiv);
-        document.getElementById("content").appendChild(opacityDiv);
+        const content = document.getElementById("content");
+        content.appendChild(navBar);
+        content.appendChild(mainView);
+        content.appendChild(menuDiv);
+        content.appendChild(opacityDiv);
         navSetup(projects);
         containerSetup(todos);
+        todoMenuSetup();
     };
 
     //adds elements to the navigation bar
@@ -96,6 +98,10 @@ const displayController = (function() {
         for (let i = 1; i < todos.length; i++) {
             const todo = document.createElement("p");
             todo.textContent = todos[i].title;
+            todo.dataset.index = i - 1;
+            todo.addEventListener("click", event => {
+                newTodoMenu();
+            });
             container.appendChild(todo);
         }
 
@@ -105,12 +111,12 @@ const displayController = (function() {
         container.appendChild(newTodo);
     }
 
-    const newTodoMenu = () => {
+    //function for setting up the layout of the side menu
+    const todoMenuSetup = () => {
         const sideMenu = document.querySelector(".side-menu");
-        sideMenu.textContent = "";
-
         const header = document.createElement("h1");
-        header.textContent = "New Item";
+        header.classList.toggle("side-header");
+        header.textContent = "";
         const title = document.createElement("input");
         title.placeholder = "Title";
         title.id = "title"
@@ -123,6 +129,34 @@ const displayController = (function() {
         const date = document.createElement("input");
         date.placeholder = "Date";
         date.id = "date"
+        const buttonDiv = document.createElement("div");
+        buttonDiv.id = "buttons";
+
+        sideMenu.appendChild(header);
+        sideMenu.appendChild(title);
+        sideMenu.appendChild(desc);
+        sideMenu.appendChild(priority)
+        sideMenu.appendChild(date);
+        sideMenu.appendChild(buttonDiv);
+    }
+
+    //sets up the side menu with controls specific to creating a todo object
+    const newTodoMenu = () => {
+        const sideMenu = document.querySelector(".side-menu");
+
+        const buttonDiv = document.getElementById("buttons");
+        buttonDiv.textContent = "";
+
+        document.querySelector(".side-header").textContent = "New Item";
+        const title = document.getElementById("title");
+        title.value = "";
+        const desc = document.getElementById("description")
+        desc.value = "";
+        const priority = document.getElementById("priority")
+        priority.value = "";
+        const date = document.getElementById("date")
+        date.value = "";
+
         const add = document.createElement("button");
         add.textContent = "Add";
         add.addEventListener("click", ()=> {
@@ -140,13 +174,8 @@ const displayController = (function() {
             closeSideMenu();
         });
 
-        sideMenu.appendChild(header);
-        sideMenu.appendChild(title);
-        sideMenu.appendChild(desc);
-        sideMenu.appendChild(priority)
-        sideMenu.appendChild(date);
-        sideMenu.appendChild(add);
-        sideMenu.appendChild(cancel);
+        buttonDiv.appendChild(add);
+        buttonDiv.appendChild(cancel);
 
         window.requestAnimationFrame(() => {
             sideMenu.style.width = "25%";
@@ -154,6 +183,7 @@ const displayController = (function() {
         });
     }
 
+    //close this side menu
     const closeSideMenu = () => {
         document.querySelector(".side-menu").style.width = "0";
         document.querySelector(".opacity-bg").style.width = "0";
@@ -215,12 +245,11 @@ const mainController = (function() {
                 todos.push(projectManage.getProject(index).getTodo(i));
             }
         }
-        console.log(todos);
         displayController.containerSetup(todos);
     }
 
+    //accepts an object as a parameter and adds a new todo to the currently selected project
     const addTodo = obj => {
-        console.log(obj);
         if (currentProj === "default") {
             projectManage.getdefaultProject().addTodo(obj.title, obj.description, obj,date, obj.priority);
             selectProject("default");

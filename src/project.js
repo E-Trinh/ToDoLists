@@ -17,6 +17,13 @@ const project = (name) => {
         list.splice(index, 1);
     };
 
+    const editTodo = (index, obj) => {
+        list[index].title = obj.title;
+        list[index].description = obj.description;
+        list[index].priority = obj.priority;
+        list[index].date = obj.date;
+    }
+
     const length = () => {
         return list.length;
     };
