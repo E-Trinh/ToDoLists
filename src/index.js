@@ -11,8 +11,22 @@ const displayController = (function() {
         const mainView = document.createElement("div");
         mainView.classList.toggle("main-container");
 
+        const menuDiv = document.createElement("div");
+        menuDiv.classList.toggle("side-menu");
+
+        const opacityDiv = document.createElement("div");
+        opacityDiv.classList.toggle("opacity-bg");
+        opacityDiv.addEventListener("click", event => {
+            window.requestAnimationFrame(() => {
+                document.querySelector(".side-menu").style.width = "0";
+                document.querySelector(".opacity-bg").style.width = "0";
+            });
+        });
+
         document.getElementById("content").appendChild(navBar);
         document.getElementById("content").appendChild(mainView);
+        document.getElementById("content").appendChild(menuDiv);
+        document.getElementById("content").appendChild(opacityDiv);
         navSetup(projects);
         containerSetup(todos);
     };
@@ -85,6 +99,18 @@ const displayController = (function() {
             todo.textContent = todos[i].title;
             container.appendChild(todo);
         }
+
+        const newTodo = document.createElement("button");
+        newTodo.textContent = "New Todo Item";
+        newTodo.addEventListener("click", newTodoMenu);
+        container.appendChild(newTodo);
+    }
+
+    const newTodoMenu = () => {
+        window.requestAnimationFrame(() => {
+            document.querySelector(".side-menu").style.width = "25%";
+            document.querySelector(".opacity-bg").style.width = "100%";
+        });
     }
 
     return {

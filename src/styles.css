@@ -37,3 +37,27 @@ html, body {
     background-color: var(--main-bg-color);
     color: var(--main-font-color);
 }
+
+.opacity-bg {
+    height: 100%;
+    width: 0;
+    background-color: #101010;
+    transition: 1s;
+    opacity: 0.5;
+    z-index: 2;
+    position: fixed;
+    right: 0;
+}
+
+.side-menu {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    right: 0;
+    background-color: var(--nav-bg-color);
+    color: var(--nav-font-color);
+    transition: 1s;
+    overflow-x: hidden;
+    overflow-y: auto;
+    z-index: 3;
+}
