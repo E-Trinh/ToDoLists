@@ -41,6 +41,11 @@ const displayController = (function() {
         header.textContent = "Todo's";
         navBar.appendChild(header);
         
+        const collaspe = document.createElement("span");
+        collaspe.textContent = "x";
+        collaspe.addEventListener("click", closeNavBar);
+        navBar.appendChild(collaspe);
+
         //default project, Home
         const defaultProject = document.createElement("p");
         defaultProject.textContent = "Home";
@@ -90,6 +95,11 @@ const displayController = (function() {
     const containerSetup = todos => {
         const container = document.querySelector(".main-container");
         container.textContent = "";
+
+        const openNav = document.createElement("span");
+        openNav.textContent = "☰";
+        openNav.addEventListener("click", openNavBar);
+        container.appendChild(openNav);
 
         const header = document.createElement("h1");
         header.textContent = todos[0];
@@ -270,6 +280,14 @@ const displayController = (function() {
             sideMenu.style.width = "25%";
             document.querySelector(".opacity-bg").style.width = "100%";
         });
+    }
+
+    const openNavBar = () => {
+        document.querySelector(".nav-bar").style.width = "20%";
+    }
+
+    const closeNavBar = () => {
+        document.querySelector(".nav-bar").style.width = "0";
     }
 
     //resets the contents of the side menu

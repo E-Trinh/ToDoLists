@@ -29,15 +29,43 @@ html, body {
     z-index: 1;
     background-color: var(--nav-bg-color);
     color: var(--nav-font-color);
+    transition: 1s;
+    position: relative;
+}
+
+.nav-bar * {
+    margin-left: 3%;
+    font-size: 1.5rem;
+}
+
+.nav-bar p:hover {
+    text-decoration: underline;
+}
+
+.nav-bar > span {
+    position: absolute;
+    font-size: 3rem;
+    top: 0;
+    right: 20px;
+    opacity: 0.7;
+}
+
+.nav-bar > h1 {
+    font-size: 3rem;
 }
 
 .main-container {
     height: 100%;
-    width: 80%;
+    width: 100%;
     overflow-x: hidden;
     overflow-y: auto;
     background-color: var(--main-bg-color);
     color: var(--main-font-color);
+}
+
+.main-container > span {
+    font-size: 1.5rem;
+    opacity: 0.7;
 }
 
 .opacity-bg {
@@ -61,8 +89,9 @@ html, body {
     overflow-x: hidden;
     overflow-y: auto;
     z-index: 3;
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 100%;
+    grid-auto-rows: auto;
     box-shadow: 0px 0px 5px #101010;
 }
 
