@@ -18,8 +18,7 @@ const displayController = (function() {
         opacityDiv.classList.toggle("opacity-bg");
         opacityDiv.addEventListener("click", event => {
             window.requestAnimationFrame(() => {
-                document.querySelector(".side-menu").style.width = "0";
-                document.querySelector(".opacity-bg").style.width = "0";
+                closeSideMenu();
             });
         });
 
@@ -107,10 +106,57 @@ const displayController = (function() {
     }
 
     const newTodoMenu = () => {
+        const sideMenu = document.querySelector(".side-menu");
+        sideMenu.textContent = "";
+
+        const header = document.createElement("h1");
+        header.textContent = "New Item";
+        const title = document.createElement("input");
+        title.placeholder = "Title";
+        title.id = "title"
+        const desc = document.createElement("input");
+        desc.placeholder = "Description";
+        desc.id = "description"
+        const priority = document.createElement("input");
+        priority.placeholder = "Priority";
+        priority.id = "priority"
+        const date = document.createElement("input");
+        date.placeholder = "Date";
+        date.id = "date"
+        const add = document.createElement("button");
+        add.textContent = "Add";
+        add.addEventListener("click", ()=> {
+            mainController.addTodo({
+                title: title.value,
+                description: desc.value,
+                priority: priority.value,
+                date: date.value,
+            });
+            closeSideMenu();
+        });
+        const cancel = document.createElement("button");
+        cancel.textContent = "Cancel";
+        cancel.addEventListener("click", () => {
+            closeSideMenu();
+        });
+
+        sideMenu.appendChild(header);
+        sideMenu.appendChild(title);
+        sideMenu.appendChild(desc);
+        sideMenu.appendChild(priority)
+        sideMenu.appendChild(date);
+        sideMenu.appendChild(add);
+        sideMenu.appendChild(cancel);
+
         window.requestAnimationFrame(() => {
-            document.querySelector(".side-menu").style.width = "25%";
+            sideMenu.style.width = "25%";
             document.querySelector(".opacity-bg").style.width = "100%";
         });
+    }
+
+    const closeSideMenu = () => {
+        document.querySelector(".side-menu").style.width = "0";
+        document.querySelector(".opacity-bg").style.width = "0";
     }
 
     return {
@@ -122,6 +168,8 @@ const displayController = (function() {
 
 //mainController module, handles interaction between the view and model
 const mainController = (function() {
+    let currentProj = "default";
+
     //used for initial setup of the page, sends the project and todo information to displayController to display
     const initialize = () => {
         const projects = [];
@@ -155,21 +203,36 @@ const mainController = (function() {
     const selectProject = index => {
         const todos = [];
         if (index === "default") {
+            currentProj = "default";
             todos.push(projectManage.getdefaultProject().name);
             for (let i = 0; i < projectManage.getdefaultProject().length(); i++) {
                 todos.push(projectManage.getdefaultProject().getTodo(i));
             }
         } else {
+            currentProj = index;
             todos.push(projectManage.getProject(index).name);
             for (let i = 0; i < projectManage.getProject(index).length(); i++) {
                 todos.push(projectManage.getProject(index).getTodo(i));
             }
         }
+        console.log(todos);
         displayController.containerSetup(todos);
+    }
+
+    const addTodo = obj => {
+        console.log(obj);
+        if (currentProj === "default") {
+            projectManage.getdefaultProject().addTodo(obj.title, obj.description, obj,date, obj.priority);
+            selectProject("default");
+        } else {
+            projectManage.getProject(currentProj).addTodo(obj.title, obj.description, obj,date, obj.priority);
+            selectProject(currentProj);
+        }
     }
 
     return {
         addProject,
         selectProject,
+        addTodo,
     }
 })();
