@@ -42,7 +42,6 @@ html, body {
     height: 100%;
     width: 0;
     background-color: #101010;
-    transition: 1s;
     opacity: 0.5;
     z-index: 2;
     position: fixed;

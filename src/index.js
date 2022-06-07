@@ -127,23 +127,51 @@ const displayController = (function() {
         header.classList.toggle("side-header");
         header.textContent = "";
         const title = document.createElement("input");
+        title.type = "text";
         title.placeholder = "Title";
         title.id = "title"
+
         const desc = document.createElement("input");
+        desc.type = "text";
         desc.placeholder = "Description";
         desc.id = "description"
-        const priority = document.createElement("input");
-        priority.placeholder = "Priority";
+
+        const priorityLabel = document.createElement("label");
+        priorityLabel.for = "priority";
+        priorityLabel.textContent = "Priority";
+
+        const priority = document.createElement("select");
         priority.id = "priority"
+
+        const low = document.createElement("option");
+        low.textContent = "Low";
+        low.value = "3";
+        low.selected = true;
+
+        const medium = document.createElement("option");
+        medium.textContent = "Medium"
+        medium.value = "2";
+
+        const high = document.createElement("option");
+        high.textContent = "High"
+        high.value = "1";
+
         const date = document.createElement("input");
+        date.type = "text";
         date.placeholder = "Date";
         date.id = "date"
+
         const buttonDiv = document.createElement("div");
         buttonDiv.id = "buttons";
+
+        priority.appendChild(high);
+        priority.appendChild(medium);
+        priority.appendChild(low);
 
         sideMenu.appendChild(header);
         sideMenu.appendChild(title);
         sideMenu.appendChild(desc);
+        sideMenu.appendChild(priorityLabel);
         sideMenu.appendChild(priority)
         sideMenu.appendChild(date);
         sideMenu.appendChild(buttonDiv);
@@ -249,7 +277,7 @@ const displayController = (function() {
         const desc = document.getElementById("description")
         desc.value = "";
         const priority = document.getElementById("priority")
-        priority.value = "";
+        priority.value = "3";
         const date = document.getElementById("date")
         date.value = "";
     }
