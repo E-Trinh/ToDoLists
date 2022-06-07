@@ -131,8 +131,8 @@ const displayController = (function() {
         title.placeholder = "Title";
         title.id = "title"
 
-        const desc = document.createElement("input");
-        desc.type = "text";
+        const desc = document.createElement("textarea");
+        desc.rows = "4";
         desc.placeholder = "Description";
         desc.id = "description"
 
@@ -157,14 +157,15 @@ const displayController = (function() {
         high.value = "1";
 
         const dateLabel = document.createElement("label");
-        priorityLabel.for = "date";
-        priorityLabel.textContent = "Date";
+        dateLabel.for = "date";
+        dateLabel.textContent = "Date";
 
         const date = document.createElement("input");
         date.type = "date";
         date.id = "date"
 
         const buttonDiv = document.createElement("div");
+        buttonDiv.classList.toggle("button-div")
         buttonDiv.id = "buttons";
 
         priority.appendChild(high);
