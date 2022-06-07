@@ -108,6 +108,26 @@ const displayController = (function() {
         const allTodoContainer = document.createElement("div");
         allTodoContainer.classList.toggle("all-todo-container");
 
+        const todoContainer = document.createElement("div");
+        todoContainer.classList.toggle("todo-container");
+        const complete = document.createElement("p");
+        complete.textContent = "Complete";
+        complete.classList.toggle("priority");
+        const priority = document.createElement("p");
+        priority.textContent = "Priority";
+        priority.classList.toggle("priority");
+        const todo = document.createElement("p");
+        todo.textContent = "Title";
+        todo.classList.toggle("todo-title");
+        const due = document.createElement("p");
+        due.textContent = "Due";
+        due.classList.toggle("due");
+        todoContainer.appendChild(complete);
+        todoContainer.appendChild(priority);
+        todoContainer.appendChild(todo);
+        todoContainer.appendChild(due);
+        allTodoContainer.appendChild(todoContainer);
+
         for (let i = 1; i < todos.length; i++) {
             const todoContainer = document.createElement("div");
             todoContainer.classList.toggle("todo-container");
@@ -116,16 +136,20 @@ const displayController = (function() {
 
             const complete = document.createElement("input");
             complete.type = "checkbox";
+            complete.classList.toggle("complete");
             //complete.checked = todos[i].complete;
 
             const priority = document.createElement("p");
             priority.textContent = todos[i].priority;
+            priority.classList.toggle("priority");
 
             const todo = document.createElement("p");
             todo.textContent = todos[i].title;
+            todo.classList.toggle("todo-title");
 
             const due = document.createElement("p");
             due.textContent = todos[i].due;
+            due.classList.toggle("due");
 
             todoContainer.addEventListener("click", event => {
                 editTodoMenu({

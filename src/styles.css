@@ -71,10 +71,29 @@ html, body {
 .all-todo-container {
     display: flex;
     flex-direction: column;
+    width: 80%;
+    background-color: var(--nav-bg-color);
+    color: var(--nav-font-color)
 }
 
 .todo-container {
     display: flex;
+}
+
+.complete {
+    flex: 1;
+}
+
+.priority {
+    flex: 1;
+}
+
+.todo-title {
+    flex: 6;
+}
+
+.due {
+    flex: 1.5;
 }
 
 .opacity-bg {
