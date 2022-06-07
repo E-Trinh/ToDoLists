@@ -137,7 +137,16 @@ const displayController = (function() {
             const complete = document.createElement("input");
             complete.type = "checkbox";
             complete.classList.toggle("complete");
-            //complete.checked = todos[i].complete;
+            complete.dataset.index = i - 1;
+            complete.checked = todos[i].complete;
+            complete.addEventListener("change", event => {
+                event.stopPropagation();
+                if (event.target.checked) {
+                    mainController.setComplete(event.target.dataset.index, true);
+                } else {
+                    mainController.setComplete(event.target.dataset.index, false);
+                }
+            });
 
             const priority = document.createElement("p");
             priority.dataset.priority = todos[i].priority;
@@ -159,13 +168,15 @@ const displayController = (function() {
             due.classList.toggle("due");
 
             todoContainer.addEventListener("click", event => {
-                editTodoMenu({
-                    index: todoContainer.dataset.index,
-                    title: todo.textContent,
-                    description: todoContainer.dataset.description,
-                    priority: priority.dataset.priority,
-                    date: due.textContent
-                });
+                if (!event.target.classList.contains("complete")) {
+                    editTodoMenu({
+                        index: todoContainer.dataset.index,
+                        title: todo.textContent,
+                        description: todoContainer.dataset.description,
+                        priority: priority.dataset.priority,
+                        date: due.textContent
+                    });
+                }
             });
             todoContainer.appendChild(complete)
             todoContainer.appendChild(priority);

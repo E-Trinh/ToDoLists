@@ -74,6 +74,7 @@ const mainController = (function() {
         selectProject(currentProj);
     }
 
+    //removes the todo object at the index for the selected project
     const deleteTodo = index => {
         if (currentProj === "default") {
             projectManage.getdefaultProject().deleteTodo(index);
@@ -83,12 +84,21 @@ const mainController = (function() {
         selectProject(currentProj);
     }
 
+    const setComplete = (index, status) => {
+        if (currentProj === "default") {
+            projectManage.getdefaultProject().getTodo(index).complete = status;
+        } else {
+            projectManage.getProject(currentProj).getTodo(index).complete = status;
+        }
+    }
+
     return {
         addProject,
         selectProject,
         addTodo,
         editTodo,
         deleteTodo,
+        setComplete
     }
 })();
 
