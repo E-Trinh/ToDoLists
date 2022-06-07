@@ -1,11 +1,11 @@
 //todo object factory
 
-const todo = (title, content, due, priority) => {
+const todo = (title, description, due, priority) => {
     let completion = false;
 
     return {
         title,
-        content,
+        description,
         due,
         priority,
         completion,

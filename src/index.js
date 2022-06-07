@@ -99,8 +99,16 @@ const displayController = (function() {
             const todo = document.createElement("p");
             todo.textContent = todos[i].title;
             todo.dataset.index = i - 1;
+            todo.dataset.description = todos[i].description;
+            todo.dataset.priority = todos[i].priority;
+            todo.dataset.date = todos[i].due;
             todo.addEventListener("click", event => {
-                newTodoMenu();
+                editTodoMenu({
+                    title: todo.textContent,
+                    description: todo.dataset.description,
+                    priority: todo.dataset.priority,
+                    date: todo.dataset.date
+                });
             });
             container.appendChild(todo);
         }
@@ -142,20 +150,14 @@ const displayController = (function() {
 
     //sets up the side menu with controls specific to creating a todo object
     const newTodoMenu = () => {
+        clearsideMenu();
         const sideMenu = document.querySelector(".side-menu");
-
+        const sideHeader = document.querySelector(".side-header");
         const buttonDiv = document.getElementById("buttons");
-        buttonDiv.textContent = "";
-
-        document.querySelector(".side-header").textContent = "New Item";
         const title = document.getElementById("title");
-        title.value = "";
-        const desc = document.getElementById("description")
-        desc.value = "";
-        const priority = document.getElementById("priority")
-        priority.value = "";
-        const date = document.getElementById("date")
-        date.value = "";
+        const desc = document.getElementById("description");
+        const priority = document.getElementById("priority");
+        const date = document.getElementById("date");
 
         const add = document.createElement("button");
         add.textContent = "Add";
@@ -164,7 +166,7 @@ const displayController = (function() {
                 title: title.value,
                 description: desc.value,
                 priority: priority.value,
-                date: date.value,
+                date: date.value
             });
             closeSideMenu();
         });
@@ -174,6 +176,8 @@ const displayController = (function() {
             closeSideMenu();
         });
 
+        document.querySelector(".side-header").textContent = "New Item";
+
         buttonDiv.appendChild(add);
         buttonDiv.appendChild(cancel);
 
@@ -181,6 +185,57 @@ const displayController = (function() {
             sideMenu.style.width = "25%";
             document.querySelector(".opacity-bg").style.width = "100%";
         });
+    }
+
+    const editTodoMenu = todo => {
+        clearsideMenu();
+        const sideMenu = document.querySelector(".side-menu");
+        const buttonDiv = document.getElementById("buttons");
+        const sideHeader = document.querySelector(".side-header");
+        const title = document.getElementById("title");
+        title.value = todo.title;
+        const desc = document.getElementById("description");
+        description.value = todo.description;
+        const priority = document.getElementById("priority");
+        priority.value = todo.priority;
+        const date = document.getElementById("date");
+        date.value = todo.date;
+
+        const save = document.createElement("button");
+        save.textContent = "Add";
+        save.addEventListener("click", ()=> {
+            closeSideMenu();
+        });
+        const cancel = document.createElement("button");
+        cancel.textContent = "Cancel";
+        cancel.addEventListener("click", () => {
+            closeSideMenu();
+        });
+
+        document.querySelector(".side-header").textContent = "View/Edit Item";
+
+        buttonDiv.appendChild(save);
+        buttonDiv.appendChild(cancel);
+
+        window.requestAnimationFrame(() => {
+            sideMenu.style.width = "25%";
+            document.querySelector(".opacity-bg").style.width = "100%";
+        });
+    }
+
+    //resets the contents of the side menu
+    const clearsideMenu = () => {
+        const buttonDiv = document.getElementById("buttons");
+        buttonDiv.textContent = "";
+        document.querySelector(".side-header").textContent = "";
+        const title = document.getElementById("title");
+        title.value = "";
+        const desc = document.getElementById("description")
+        desc.value = "";
+        const priority = document.getElementById("priority")
+        priority.value = "";
+        const date = document.getElementById("date")
+        date.value = "";
     }
 
     //close this side menu
@@ -251,7 +306,7 @@ const mainController = (function() {
     //accepts an object as a parameter and adds a new todo to the currently selected project
     const addTodo = obj => {
         if (currentProj === "default") {
-            projectManage.getdefaultProject().addTodo(obj.title, obj.description, obj,date, obj.priority);
+            projectManage.getdefaultProject().addTodo(obj.title, obj.description, obj.date, obj.priority);
             selectProject("default");
         } else {
             projectManage.getProject(currentProj).addTodo(obj.title, obj.description, obj,date, obj.priority);
