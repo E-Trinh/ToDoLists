@@ -13,4 +13,4 @@ Languages, Tools, and more:
 * Local Storage API
 
 ### Live Demo
-[Live Demo](https://github.com/E-Trinh/ToDoLists)
+[Live Demo](https://e-trinh.github.io/ToDoLists/)
