@@ -8,51 +8,30 @@ const mainController = (() => {
 
   // used for initial setup of the page, sends the project and todo information to displayController to display
   const initialize = () => {
-    const projects = [];
-    const todos = [];
-    for (let i = 0; i < projectManage.projectNum(); i += 1) {
-      projects.push({
-        name: projectManage.getProject(i).name,
-        index: i,
-      });
-    }
-    todos.push(projectManage.getdefaultProject().name);
-    for (let i = 0; i < projectManage.getdefaultProject().length(); i += 1) {
-      todos.push(projectManage.getdefaultProject().getTodo(i));
-    }
+    const projects = projectManage.getProjectInfo();
+    const todos = [projectManage.getdefaultProject().name].concat(projectManage.getdefaultProject().getAllTodos());
     displayController.pageSetup(projects, todos);
+  };
+
+  // function for displaying a project, gets the project data from model and uses displayController to display it
+  const selectProject = (index) => {
+    let todos = [];
+    if (index === "default") {
+      currentProj = "default";
+      todos = [projectManage.getdefaultProject().name].concat(projectManage.getdefaultProject().getAllTodos());
+    } else {
+      currentProj = index;
+      todos = [projectManage.getProject(index).name].concat(projectManage.getProject(index).getAllTodos());
+    }
+    displayController.containerSetup(todos);
   };
 
   // function for adding a new project to the model and view
   const addProject = (name) => {
     projectManage.newProject(name);
-    const projects = [];
-    for (let i = 0; i < projectManage.projectNum(); i += 1) {
-      projects.push({
-        name: projectManage.getProject(i).name,
-        index: i,
-      });
-    }
+    const projects = projectManage.getProjectInfo();
     displayController.navSetup(projects);
-  };
-
-  // function for displaying a project, gets the project data from model and uses displayController to display it
-  const selectProject = (index) => {
-    const todos = [];
-    if (index === "default") {
-      currentProj = "default";
-      todos.push(projectManage.getdefaultProject().name);
-      for (let i = 0; i < projectManage.getdefaultProject().length(); i += 1) {
-        todos.push(projectManage.getdefaultProject().getTodo(i));
-      }
-    } else {
-      currentProj = index;
-      todos.push(projectManage.getProject(index).name);
-      for (let i = 0; i < projectManage.getProject(index).length(); i += 1) {
-        todos.push(projectManage.getProject(index).getTodo(i));
-      }
-    }
-    displayController.containerSetup(todos);
+    selectProject(projectManage.projectNum() - 1);
   };
 
   // accepts an object as a parameter and adds a new todo to the currently selected project
@@ -99,40 +78,20 @@ const mainController = (() => {
 
   // gets the name and index for all projects and sends to displayController to display
   const showProjects = () => {
-    const userProjects = [];
-    for (let i = 0; i < projectManage.projectNum(); i += 1) {
-      userProjects.push({
-        name: projectManage.getProject(i).name,
-        count: projectManage.getProject(i).length(),
-      });
-    }
+    const userProjects = projectManage.getProjectInfo();
     displayController.projectTabSetup(userProjects);
   };
 
   // renames the project at the index with the new name passed as an argument
   const renameProject = (index, name) => {
     projectManage.getProject(index).name = name;
-    const projects = [];
-    for (let i = 0; i < projectManage.projectNum(); i += 1) {
-      projects.push({
-        name: projectManage.getProject(i).name,
-        index: i,
-      });
-    }
-    displayController.navSetup(projects);
+    displayController.navSetup(projectManage.getProjectInfo());
   };
 
   // deletes project and sends user project object data to displayController to update HTML document
   const deleteProject = (index) => {
     projectManage.deleteProject(index);
-    const projects = [];
-    for (let i = 0; i < projectManage.projectNum(); i += 1) {
-      projects.push({
-        name: projectManage.getProject(i).name,
-        count: projectManage.getProject(i).length(),
-        index: i,
-      });
-    }
+    const projects = projectManage.getProjectInfo();
     displayController.navSetup(projects);
     displayController.projectTabSetup(projects);
   };
@@ -146,15 +105,7 @@ const mainController = (() => {
     defaultProj.push(projectManage.getdefaultProject().name);
     for (let i = 0; i < projectManage.getdefaultProject().length(); i += 1) {
       const todo = projectManage.getdefaultProject().getTodo(i);
-      defaultProj.push(
-        JSON.stringify({
-          title: todo.title,
-          description: todo.description,
-          due: todo.due,
-          priority: todo.priority,
-          completion: todo.completion,
-        })
-      );
+      defaultProj.push(JSON.stringify(todo));
     }
     // saves the user created projects
     localStorage.setItem(0, JSON.stringify(defaultProj));
@@ -163,15 +114,7 @@ const mainController = (() => {
       proj.push(projectManage.getProject(i).name);
       for (let j = 0; j < projectManage.getProject(i).length(); j += 1) {
         const todo = projectManage.getProject(i).getTodo(j);
-        proj.push(
-          JSON.stringify({
-            title: todo.title,
-            description: todo.description,
-            due: todo.due,
-            priority: todo.priority,
-            completion: todo.completion,
-          })
-        );
+        proj.push(JSON.stringify(todo));
       }
       localStorage.setItem(i + 1, JSON.stringify(proj));
     }

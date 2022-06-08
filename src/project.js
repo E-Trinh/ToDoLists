@@ -25,10 +25,18 @@ const project = (name) => {
     list[index].title = obj.title;
     list[index].description = obj.description;
     list[index].priority = obj.priority;
-    list[index].date = obj.date;
+    list[index].due = obj.date;
   };
 
   const length = () => list.length;
+
+  const getAllTodos = () => {
+    const todos = [];
+    for (let i = 0; i < list.length; i += 1) {
+        todos.push(list[i]);
+      }
+      return todos;
+  };
 
   return {
     name,
@@ -38,6 +46,7 @@ const project = (name) => {
     deleteTodo,
     editTodo,
     length,
+    getAllTodos,
   };
 };
 

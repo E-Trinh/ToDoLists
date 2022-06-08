@@ -225,30 +225,30 @@ const displayController = (() => {
     navBar.appendChild(projectsTag);
 
     // adds elements for the name of each projects
-    projects.forEach((proj) => {
+    for (let i = 0; i < projects.length; i += 1) {
       const nameTag = document.createElement("p");
-      nameTag.dataset.index = proj.index;
-      nameTag.textContent = proj.name;
+      nameTag.dataset.index = i;
+      nameTag.textContent = projects[i].name;
       nameTag.addEventListener("click", (event) => {
         mainController.selectProject(event.target.dataset.index);
       });
       navBar.appendChild(nameTag);
-    });
+    }
 
     // function is called whenever the user tries to make an new project user document elements
-    const newProjectEventListener = event => {
+    const newProjectEventListener = (event) => {
       const name = event.target.textContent;
       if (name !== "+ New Project" && name !== "") {
         mainController.addProject(name);
       }
-      const newProjTag = document.querySelector("new-project-tag");
+      const newProjTag = document.querySelector("#new-project-tag");
       newProjTag.textContent = "+ New Project";
       newProjTag.blur();
     };
 
     // element used for creating new project from the navigation bar
     const newProject = document.createElement("p");
-    newProject.id = ("new-project-tag");
+    newProject.id = "new-project-tag";
     newProject.textContent = "+ New Project";
     newProject.contentEditable = true;
     newProject.addEventListener("click", () => {
@@ -322,9 +322,9 @@ const displayController = (() => {
 
       const priorityTag = document.createElement("p");
       priorityTag.dataset.priority = todos[i].priority;
-      if (todos[i].priority === 1) {
+      if (todos[i].priority === "1") {
         priorityTag.textContent = "High";
-      } else if (todos[i].priority === 2) {
+      } else if (todos[i].priority === "2") {
         priorityTag.textContent = "Medium";
       } else {
         priorityTag.textContent = "Low";
@@ -410,7 +410,7 @@ const displayController = (() => {
       projectName.contentEditable = true;
       projectName.addEventListener("keyup", (event) => {
         if (event.code === "Enter") {
-          renameProjectEventListener(event);
+          event.target.blur();
         }
       });
       projectName.addEventListener("blur", renameProjectEventListener);

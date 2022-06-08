@@ -131,6 +131,10 @@ a:hover {
   text-overflow: ellipsis;
 }
 
+.project-name br {
+  display: none;
+}
+
 .due {
   flex: 1.5;
   overflow: hidden;
