@@ -214,18 +214,25 @@ const displayController = (function() {
         for (let i = 0; i < projects.length; i++) {
             const projectName = document.createElement("p");
             const projectCount = document.createElement("p");
+            const projectDelete = document.createElement("button");
             projectName.textContent = projects[i].name;
             projectName.dataset.index = i;
-            projectCount.textContent = projects[i].count;
             projectName.contentEditable = true;
             projectName.addEventListener("keyup", event => {
                 if (event.code === "Enter") {
                     renameProjectEventListener(event);
                 }
             });
+            projectCount.textContent = projects[i].count;
+            projectDelete.textContent = "Delete";
+            projectDelete.dataset.index = i;
+            projectDelete.addEventListener("click", event => {
+                mainController.deleteProject(event.target.dataset.index);
+            });
             projectName.addEventListener("blur", renameProjectEventListener);
             container.appendChild(projectName);
             container.appendChild(projectCount);
+            container.appendChild(projectDelete);
         }
     };
 

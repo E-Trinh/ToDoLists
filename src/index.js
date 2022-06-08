@@ -118,6 +118,21 @@ const mainController = (function() {
         displayController.navSetup(projects);
     }
 
+    //deletes project and sends user project object data to displayController to update HTML document
+    const deleteProject = index => {
+        projectManage.deleteProject(index);
+        const projects = [];
+        for (let i = 0; i < projectManage.projectNum(); i++) {
+            projects.push({
+                name: projectManage.getProject(i).name,
+                count: projectManage.getProject(i).length(),
+                index: i,
+            });
+        }
+        displayController.navSetup(projects);
+        displayController.projectTabSetup(projects);
+    }
+
     //stores projects and todos in local storage
     const save = () => {
         localStorage.clear();
@@ -187,6 +202,7 @@ const mainController = (function() {
         setComplete,
         showProjects,
         renameProject,
+        deleteProject,
         save,
         restore
     }
