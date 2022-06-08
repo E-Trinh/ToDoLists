@@ -1,272 +1,287 @@
 :root {
-    --nav-bg-color: #0284C7;
-    --nav-font-color: #F0F9FF;
-    --main-bg-color: #DBEAFE;
-    --main-font-color: #0C4A6E;
+  --nav-bg-color: #0284c7;
+  --nav-font-color: #f0f9ff;
+  --main-bg-color: #dbeafe;
+  --main-font-color: #0c4a6e;
 }
 
 * {
-    padding: 0px;
-    margin: 0px;
+  padding: 0px;
+  margin: 0px;
 }
 
-html, body {
-    font-family: 'PT Sans', Roboto, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+html,
+body {
+  font-family: "PT Sans", Roboto, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+    "Segoe UI Symbol";
 }
 
 #content {
-    height: 100vh;
-    width: 100vw;
-    display: flex;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
 }
 
 .nav-bar {
-    height: 100%;
-    width: 20%;
-    overflow-x: hidden;
-    overflow-y: auto;
-    box-shadow: 0px 0px 5px #101010;
-    z-index: 1;
-    background-color: var(--nav-bg-color);
-    color: var(--nav-font-color);
-    transition: 1s;
-    position: relative;
+  height: 100%;
+  width: 20%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  box-shadow: 0px 0px 5px #101010;
+  z-index: 1;
+  background-color: var(--nav-bg-color);
+  color: var(--nav-font-color);
+  transition: 1s;
+  position: relative;
 }
 
 .nav-bar * {
-    margin-left: 3%;
-    font-size: 1.5rem;
-    text-decoration: none;
+  margin-left: 3%;
+  font-size: 1.5rem;
+  text-decoration: none;
 }
 
 .nav-bar a {
-    color: var(--nav-font-color);
-    font-size: 1rem;
+  color: var(--nav-font-color);
+  font-size: 1rem;
 }
 
-.nav-bar p:hover, a:hover {
-    text-decoration: underline;
+.nav-bar p:hover,
+a:hover {
+  text-decoration: underline;
 }
 
-.nav-bar > span{
-    position: absolute;
-    font-size: 3rem;
-    top: 0;
-    right: 20px;
-    opacity: 0.7;
+.nav-bar > span {
+  position: absolute;
+  font-size: 3rem;
+  top: 0;
+  right: 20px;
+  opacity: 0.7;
 }
 
-.nav-bar > h1{
-    font-size: 3rem;
+.nav-bar > h1 {
+  font-size: 3rem;
 }
 
 .main-container {
-    height: 100%;
-    width: 100%;
-    overflow-x: hidden;
-    overflow-y: auto;
-    background-color: var(--main-bg-color);
-    color: var(--main-font-color);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: relative;
-    font-size: 1.3rem;
+  height: 100%;
+  width: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  background-color: var(--main-bg-color);
+  color: var(--main-font-color);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  font-size: 1.3rem;
 }
 
 .main-container > span {
-    font-size: 1.5rem;
-    position: absolute;
-    left: 15px;
-    top: 10px;
-    opacity: 0.7;
+  font-size: 1.5rem;
+  position: absolute;
+  left: 15px;
+  top: 10px;
+  opacity: 0.7;
 }
 
-.all-todo-container, .all-project-container {
-    display: flex;
-    flex-direction: column;
-    width: 80%;
-    background-color: var(--nav-bg-color);
-    color: var(--nav-font-color);
-    border-radius: 5px;
-    border: 1px solid #101010;
-    box-shadow: 0px 0px 3px #101010;
+.all-todo-container,
+.all-project-container {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  background-color: var(--nav-bg-color);
+  color: var(--nav-font-color);
+  border-radius: 5px;
+  border: 1px solid #101010;
+  box-shadow: 0px 0px 3px #101010;
 }
 
-.todo-container, .project-container, .key-container {
-    display: flex;
-    margin-top: 3px;
-    margin-bottom: 3px;
-    padding-top: 3px;
-    padding-bottom: 3px;
+.todo-container,
+.project-container,
+.key-container {
+  display: flex;
+  margin-top: 3px;
+  margin-bottom: 3px;
+  padding-top: 3px;
+  padding-bottom: 3px;
 }
 
-.todo-container:hover, .project-container:hover {
-    background-color: #164E63;
+.todo-container:hover,
+.project-container:hover {
+  background-color: #164e63;
 }
 
 .complete {
-    flex: 1;
+  flex: 1;
 }
 
-.priority, .project-size {
-    flex: 1;
-    overflow: hidden;
-    text-overflow: ellipsis;
+.priority,
+.project-size {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.todo-title, .project-name {
-    flex: 6;
-    overflow: hidden;
-    text-overflow: ellipsis;
+.todo-title,
+.project-name {
+  flex: 6;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .due {
-    flex: 1.5;
-    overflow: hidden;
-    text-overflow: ellipsis;
+  flex: 1.5;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .project-delete-key {
-    flex: 1.25;
+  flex: 1.25;
 }
 
 .project-delete {
-    flex: 1.25;
-    border: none;
-    border-radius: 5px;
-    background-color: #DB1F1F;
-    color: var(--nav-font-color);
-    transition: background-color 0.5s;
+  flex: 1.25;
+  border: none;
+  border-radius: 5px;
+  background-color: #db1f1f;
+  color: var(--nav-font-color);
+  transition: background-color 0.5s;
 }
 
 .project-delete:hover {
-    background-color: #DB5523;
+  background-color: #db5523;
 }
 
 .new-todo-button {
-    text-align: left;
-    font-size: 1.5rem;
-    background-color: #075985;
-    color: var(--nav-font-color);
-    border: none;
-    transition: background-color 0.5s;
+  text-align: left;
+  font-size: 1.5rem;
+  background-color: #075985;
+  color: var(--nav-font-color);
+  border: none;
+  transition: background-color 0.5s;
 }
 
 .new-todo-button:hover {
-    background-color: #0369A1;
+  background-color: #0369a1;
 }
 
 .opacity-bg {
-    height: 100%;
-    width: 0;
-    background-color: #101010;
-    opacity: 0.5;
-    z-index: 2;
-    position: fixed;
-    right: 0;
+  height: 100%;
+  width: 0;
+  background-color: #101010;
+  opacity: 0.5;
+  z-index: 2;
+  position: fixed;
+  right: 0;
 }
 
 .side-menu {
-    height: 100%;
-    width: 0;
-    position: fixed;
-    right: 0;
-    background-color: var(--nav-bg-color);
-    color: var(--nav-font-color);
-    transition: 1s;
-    overflow-x: hidden;
-    overflow-y: auto;
-    z-index: 3;
-    display: grid;
-    grid-template-columns: 100%;
-    grid-auto-rows: auto;
-    box-shadow: 0px 0px 5px #101010;
+  height: 100%;
+  width: 0;
+  position: fixed;
+  right: 0;
+  background-color: var(--nav-bg-color);
+  color: var(--nav-font-color);
+  transition: 1s;
+  overflow-x: hidden;
+  overflow-y: auto;
+  z-index: 3;
+  display: grid;
+  grid-template-columns: 100%;
+  grid-auto-rows: auto;
+  box-shadow: 0px 0px 5px #101010;
 }
 
 .side-menu * {
-    margin: 4%;
+  margin: 4%;
 }
 
-.side-menu > input, textarea, select {
-    background-color: transparent;
-    border: none;
-    font-size: 1rem;
-    border-bottom: solid 1px var(--nav-font-color);
-    color: var(--nav-font-color);
-    opacity: 0.5;
+.side-menu > input,
+textarea,
+select {
+  background-color: transparent;
+  border: none;
+  font-size: 1rem;
+  border-bottom: solid 1px var(--nav-font-color);
+  color: var(--nav-font-color);
+  opacity: 0.5;
 }
 
-.side-menu > input:focus, textarea:focus, select:focus {
-    opacity: 1;
-    border: none;
-    box-shadow: none;
-    outline: none;
-    border-bottom: solid 1px var(--nav-font-color);
+.side-menu > input:focus,
+textarea:focus,
+select:focus {
+  opacity: 1;
+  border: none;
+  box-shadow: none;
+  outline: none;
+  border-bottom: solid 1px var(--nav-font-color);
 }
 
 .side-menu > textarea {
-    border-radius: 5px;
-    border: solid 1px var(--nav-font-color);
-    padding: 5px;
+  border-radius: 5px;
+  border: solid 1px var(--nav-font-color);
+  padding: 5px;
 }
 
 .side-menu > label {
-    margin-bottom: 0;
+  margin-bottom: 0;
 }
 
-#date, #priority {
-    margin-top: 0;
+#date,
+#priority {
+  margin-top: 0;
 }
 
 .side-menu > textarea {
-    resize: none;
+  resize: none;
 }
 
 .button-div {
-    margin-top: 0;
-    display: flex;
-    justify-content: center;
+  margin-top: 0;
+  display: flex;
+  justify-content: center;
 }
 
 .button-div > button {
-    background-color: var(--nav-font-color);
-    color: var(--nav-bg-color);
-    border: none;
-    font-size: 1rem;
-    padding: 3%;
-    box-shadow: 0px 0px 5px #101010;
-    transition: background-color 0.5s;
-    min-height: fit-content;
-    min-width: fit-content;
-    width: 200px;
-    height: 40px;
-    vertical-align: baseline;
+  background-color: var(--nav-font-color);
+  color: var(--nav-bg-color);
+  border: none;
+  font-size: 1rem;
+  padding: 3%;
+  box-shadow: 0px 0px 5px #101010;
+  transition: background-color 0.5s;
+  min-height: fit-content;
+  min-width: fit-content;
+  width: 200px;
+  height: 40px;
+  vertical-align: baseline;
 }
 
 .button-div > button:hover {
-    background-color: #0C4A6E;
-    color: var(--nav-font-color);
+  background-color: #0c4a6e;
+  color: var(--nav-font-color);
 }
 
 .storage {
-    z-index: 2;
-    width: 100vw;
-    height: 10%;
-    position: absolute;
-    bottom: 0px;
-    left: 0px;
-    display: flex;
-    justify-content: center;
-    background-color: #0C4A6E;
-    color: var(--nav-font-color);
-    font-size: 1.5rem;
+  z-index: 2;
+  width: 100vw;
+  height: 10%;
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  display: flex;
+  justify-content: center;
+  background-color: #0c4a6e;
+  color: var(--nav-font-color);
+  font-size: 1.5rem;
 }
 
 .storage > span {
-    position: absolute;
-    font-size: 2rem;
-    top: 0;
-    right: 20px;
-    opacity: 0.7;
+  position: absolute;
+  font-size: 2rem;
+  top: 0;
+  right: 20px;
+  opacity: 0.7;
 }
