@@ -93,6 +93,31 @@ const mainController = (function() {
         }
     }
 
+    //gets the name and index for all projects and sends to displayController to display
+    const showProjects = () => {
+        const userProjects = [];
+        for (let i = 0; i < projectManage.projectNum(); i++) {
+            userProjects.push({
+                name: projectManage.getProject(i).name,
+                count: projectManage.getProject(i).length(),
+            });
+        }
+        displayController.projectTabSetup(userProjects);
+    }
+
+    //renames the project at the index with the new name passed as an argument
+    const renameProject = (index, name) => {
+        projectManage.getProject(index).name = name;
+        const projects = [];
+        for (let i = 0; i < projectManage.projectNum(); i++) {
+            projects.push({
+                name: projectManage.getProject(i).name,
+                index: i,
+            });
+        }
+        displayController.navSetup(projects);
+    }
+
     //stores projects and todos in local storage
     const save = () => {
         localStorage.clear();
@@ -160,6 +185,8 @@ const mainController = (function() {
         editTodo,
         deleteTodo,
         setComplete,
+        showProjects,
+        renameProject,
         save,
         restore
     }

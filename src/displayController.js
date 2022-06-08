@@ -54,6 +54,13 @@ const displayController = (function() {
         });
         navBar.appendChild(defaultProject);
 
+        const projectsTag = document.createElement("p");
+        projectsTag.textContent = "Projects";
+        projectsTag.addEventListener("click", () => {
+            mainController.showProjects();
+        });
+        navBar.appendChild(projectsTag);
+
         //adds elements for the name of each projects
         projects.forEach(proj => {
             const nameTag = document.createElement("p");
@@ -193,6 +200,38 @@ const displayController = (function() {
         newTodo.addEventListener("click", newTodoMenu);
         allTodoContainer.appendChild(newTodo);
     }
+
+    //shows a list of all the user projects
+    const projectTabSetup = projects => {
+        const container = document.querySelector(".main-container");
+        container.textContent = "";
+
+        const openNav = document.createElement("span");
+        openNav.textContent = "☰";
+        openNav.addEventListener("click", openNavBar);
+        container.appendChild(openNav);
+
+        for (let i = 0; i < projects.length; i++) {
+            const projectName = document.createElement("p");
+            const projectCount = document.createElement("p");
+            projectName.textContent = projects[i].name;
+            projectName.dataset.index = i;
+            projectCount.textContent = projects[i].count;
+            projectName.contentEditable = true;
+            projectName.addEventListener("keyup", event => {
+                if (event.code === "Enter") {
+                    renameProjectEventListener(event);
+                }
+            });
+            projectName.addEventListener("blur", renameProjectEventListener);
+            container.appendChild(projectName);
+            container.appendChild(projectCount);
+        }
+    };
+
+    const renameProjectEventListener = event => {
+        mainController.renameProject(event.target.dataset.index, event.target.textContent);
+    };
 
     //function for setting up the layout of the side menu
     const todoMenuSetup = () => {
@@ -379,6 +418,7 @@ const displayController = (function() {
         pageSetup,
         navSetup,
         containerSetup,
+        projectTabSetup,
     }
 })();
 
