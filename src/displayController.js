@@ -40,6 +40,11 @@ const displayController = (function() {
         const header = document.createElement("h1");
         header.textContent = "Todo's";
         navBar.appendChild(header);
+
+        const sourceLink = document.createElement("a");
+        sourceLink.textContent = "View Source";
+        sourceLink.href = "https://github.com/E-Trinh/ToDoLists";
+        navBar.appendChild(sourceLink);
         
         const collaspe = document.createElement("span");
         collaspe.textContent = "x";
@@ -211,10 +216,36 @@ const displayController = (function() {
         openNav.addEventListener("click", openNavBar);
         container.appendChild(openNav);
 
+        const header = document.createElement("h1");
+        header.textContent = "All Projects";
+        container.appendChild(header);
+
+        const allProjectContainer = document.createElement("div");
+        allProjectContainer.classList.toggle("all-project-container");
+
+        const keyContainer = document.createElement("div");
+        keyContainer.classList.toggle("key-container");
+        const projectNameKey = document.createElement("p");
+        projectNameKey.classList.toggle("project-name");
+        projectNameKey.textContent = "Project Name";
+        const projectSizeKey = document.createElement("p");
+        projectSizeKey.classList.toggle("project-size");
+        projectSizeKey.textContent = "Todo Count";
+        const projectDeleteKey = document.createElement("p");
+        projectDeleteKey.classList.toggle("project-delete-key");
+        projectDeleteKey.textContent = "Delete";
+        keyContainer.appendChild(projectNameKey);
+        keyContainer.appendChild(projectSizeKey);
+        keyContainer.appendChild(projectDeleteKey);
+        allProjectContainer.appendChild(keyContainer);
+
+
         for (let i = 0; i < projects.length; i++) {
+            const projectContainer = document.createElement("div");
+            projectContainer.classList.toggle("project-container");
+
             const projectName = document.createElement("p");
-            const projectCount = document.createElement("p");
-            const projectDelete = document.createElement("button");
+            projectName.classList.toggle("project-name");
             projectName.textContent = projects[i].name;
             projectName.dataset.index = i;
             projectName.contentEditable = true;
@@ -223,17 +254,26 @@ const displayController = (function() {
                     renameProjectEventListener(event);
                 }
             });
+            projectName.addEventListener("blur", renameProjectEventListener);
+
+            const projectCount = document.createElement("p");
+            projectCount.classList.toggle("project-size");
             projectCount.textContent = projects[i].count;
+
+            const projectDelete = document.createElement("button");
+            projectDelete.classList.toggle("project-delete");
             projectDelete.textContent = "Delete";
             projectDelete.dataset.index = i;
             projectDelete.addEventListener("click", event => {
                 mainController.deleteProject(event.target.dataset.index);
             });
-            projectName.addEventListener("blur", renameProjectEventListener);
-            container.appendChild(projectName);
-            container.appendChild(projectCount);
-            container.appendChild(projectDelete);
+
+            projectContainer.appendChild(projectName);
+            projectContainer.appendChild(projectCount);
+            projectContainer.appendChild(projectDelete);
+            allProjectContainer.appendChild(projectContainer);
         }
+        container.appendChild(allProjectContainer)
     };
 
     const renameProjectEventListener = event => {

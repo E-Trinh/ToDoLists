@@ -36,9 +36,15 @@ html, body {
 .nav-bar * {
     margin-left: 3%;
     font-size: 1.5rem;
+    text-decoration: none;
 }
 
-.nav-bar p:hover {
+.nav-bar a {
+    color: var(--nav-font-color);
+    font-size: 1rem;
+}
+
+.nav-bar p:hover, a:hover {
     text-decoration: underline;
 }
 
@@ -50,7 +56,7 @@ html, body {
     opacity: 0.7;
 }
 
-.nav-bar > h1 {
+.nav-bar > h1{
     font-size: 3rem;
 }
 
@@ -77,7 +83,7 @@ html, body {
     opacity: 0.7;
 }
 
-.all-todo-container {
+.all-todo-container, .all-project-container {
     display: flex;
     flex-direction: column;
     width: 80%;
@@ -88,13 +94,13 @@ html, body {
     box-shadow: 0px 0px 3px #101010;
 }
 
-.todo-container, .key-container {
+.todo-container, .project-container, .key-container {
     display: flex;
     margin-top: 5px;
     margin-bottom: 5px;
 }
 
-.todo-container:hover {
+.todo-container:hover, .project-container:hover {
     background-color: #164E63;
 }
 
@@ -102,13 +108,13 @@ html, body {
     flex: 1;
 }
 
-.priority {
+.priority, .project-size {
     flex: 1;
     overflow: hidden;
     text-overflow: ellipsis;
 }
 
-.todo-title {
+.todo-title, .project-name {
     flex: 6;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -118,6 +124,23 @@ html, body {
     flex: 1.5;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+.project-delete-key {
+    flex: 1.25;
+}
+
+.project-delete {
+    flex: 1.25;
+    border: none;
+    border-radius: 5px;
+    background-color: #DB1F1F;
+    color: var(--nav-font-color);
+    transition: background-color 0.5s;
+}
+
+.project-delete:hover {
+    background-color: #DB5523;
 }
 
 .new-todo-button {
