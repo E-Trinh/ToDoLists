@@ -11,7 +11,7 @@
 }
 
 html, body {
-    font-family: Roboto, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    font-family: 'PT Sans', Roboto, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 }
 
 #content {
@@ -48,7 +48,7 @@ html, body {
     text-decoration: underline;
 }
 
-.nav-bar > span {
+.nav-bar > span{
     position: absolute;
     font-size: 3rem;
     top: 0;
@@ -71,7 +71,6 @@ html, body {
     flex-direction: column;
     align-items: center;
     position: relative;
-    padding-top: 50px;
     font-size: 1.3rem;
 }
 
@@ -96,8 +95,10 @@ html, body {
 
 .todo-container, .project-container, .key-container {
     display: flex;
-    margin-top: 5px;
-    margin-bottom: 5px;
+    margin-top: 3px;
+    margin-bottom: 3px;
+    padding-top: 3px;
+    padding-bottom: 3px;
 }
 
 .todo-container:hover, .project-container:hover {
@@ -246,4 +247,26 @@ html, body {
 .button-div > button:hover {
     background-color: #0C4A6E;
     color: var(--nav-font-color);
+}
+
+.storage {
+    z-index: 2;
+    width: 100vw;
+    height: 10%;
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    display: flex;
+    justify-content: center;
+    background-color: #0C4A6E;
+    color: var(--nav-font-color);
+    font-size: 1.5rem;
+}
+
+.storage > span {
+    position: absolute;
+    font-size: 2rem;
+    top: 0;
+    right: 20px;
+    opacity: 0.7;
 }

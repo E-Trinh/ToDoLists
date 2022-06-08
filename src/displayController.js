@@ -22,6 +22,19 @@ const displayController = (function() {
             });
         });
 
+        const storageUseDiv = document.createElement("div");
+        storageUseDiv.classList.toggle("storage");
+        const storageUseText = document.createElement("p");
+        storageUseText.textContent = "This site uses local storage to store all user projects and todo items locally when the website is closed."
+        const storageUseClose = document.createElement("span");
+        storageUseClose.textContent = "x";
+        storageUseClose.addEventListener("click", () => {
+            document.body.removeChild(storageUseDiv);
+        });
+        storageUseDiv.appendChild(storageUseText);
+        storageUseDiv.appendChild(storageUseClose);
+        document.body.appendChild(storageUseDiv);
+
         const content = document.getElementById("content");
         content.appendChild(navBar);
         content.appendChild(mainView);
@@ -43,6 +56,7 @@ const displayController = (function() {
 
         const sourceLink = document.createElement("a");
         sourceLink.textContent = "View Source";
+        sourceLink.target = "_blank";
         sourceLink.href = "https://github.com/E-Trinh/ToDoLists";
         navBar.appendChild(sourceLink);
         
