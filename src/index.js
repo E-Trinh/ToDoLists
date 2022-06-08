@@ -11,7 +11,10 @@ const mainController = (function() {
         const projects = [];
         const todos = [];
         for (let i = 0; i < projectManage.projectNum(); i++) {
-            projects.push(projectManage.getProject(i).name)
+            projects.push({
+                name: projectManage.getProject(i).name,
+                index: i,
+            });
         }
         todos.push(projectManage.getdefaultProject().name);
         for (let i = 0; i < projectManage.getdefaultProject().length(); i++) {
@@ -19,8 +22,6 @@ const mainController = (function() {
         }
         displayController.pageSetup(projects, todos);
     }
-
-    initialize();
 
     //function for adding a new project to the model and view
     const addProject = name => {
@@ -92,14 +93,79 @@ const mainController = (function() {
         }
     }
 
+    //stores projects and todos in local storage
+    const save = () => {
+        localStorage.clear();
+        //saves the default project
+        localStorage.setItem("count", projectManage.projectNum());
+        const defaultProj = [];
+        defaultProj.push(projectManage.getdefaultProject().name);
+        for (let i = 0; i < projectManage.getdefaultProject().length(); i++) {
+            const todo = projectManage.getdefaultProject().getTodo(i);
+            defaultProj.push(JSON.stringify({
+                title: todo.title,
+                description: todo.description,
+                due: todo.due,
+                priority: todo.priority,
+                completion: todo.completion
+            }));
+        }
+        //saves the user created projects
+        localStorage.setItem(0, JSON.stringify(defaultProj));
+        for (let i = 0; i < projectManage.projectNum(); i++) {
+            const proj = [];
+            proj.push(projectManage.getProject(i).name);
+            for (let j = 0; j < projectManage.getProject(i).length(); j++) {
+                const todo = projectManage.getProject(i).getTodo(j);
+                proj.push(JSON.stringify({
+                    title: todo.title,
+                    description: todo.description,
+                    due: todo.due,
+                    priority: todo.priority,
+                    completion: todo.completion
+                }));
+            }
+            localStorage.setItem(i + 1, JSON.stringify(proj));
+        }
+    };
+
+    //checks if there is any previous data in local storage and retrieves it
+    const restore = () => {
+        //retrieves any todo objects for the default proejct
+        const defaultProj = JSON.parse(localStorage.getItem(0));
+        if (defaultProj) {
+            projectManage.getdefaultProject().name = defaultProj[0];
+            for (let i = 1; i < defaultProj.length; i++) {
+                projectManage.getdefaultProject().addFullTodo(JSON.parse(defaultProj[i]));
+            }
+        }
+        //retrieves any user projects and todo objects in local storage 
+        const count = localStorage.getItem("count");
+        if (count) {
+            for (let i = 1; i < parseInt(count) + 1; i++) {
+                const proj = JSON.parse(localStorage[i]);
+                projectManage.newProject(proj[0]);
+                for (let j = 1; j < proj.length; j++) {
+                    projectManage.getProject(i - 1).addFullTodo(JSON.parse(proj[j]));
+                }
+            }
+        }
+        initialize();
+    }
+
     return {
         addProject,
         selectProject,
         addTodo,
         editTodo,
         deleteTodo,
-        setComplete
+        setComplete,
+        save,
+        restore
     }
 })();
+
+mainController.restore();
+window.onbeforeunload = mainController.save;
 
 export { mainController }

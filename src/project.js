@@ -10,7 +10,11 @@ const project = (name) => {
     };
 
     const addTodo = (title, description, due, priority) => {
-        list.push(todo(title, description, due, priority));
+        list.push(todo(title, description, due, priority, false));
+    };
+
+    const addFullTodo = obj => {
+        list.push(todo(obj.title, obj.description, obj.due, obj.priority, obj.completion));
     };
 
     const deleteTodo = index => {
@@ -32,10 +36,10 @@ const project = (name) => {
         name,
         getTodo,
         addTodo,
+        addFullTodo,
         deleteTodo,
         editTodo,
         length,
-        name,
     };
 };
 
