@@ -1,4 +1,5 @@
-// todo object factory
+// todo object factory, contains 5 fields
+
 const todo = (title, description, due, priority, completion) => ({
   title,
   description,
@@ -6,4 +7,5 @@ const todo = (title, description, due, priority, completion) => ({
   priority,
   completion,
 });
+
 export default todo;
